@@ -1,0 +1,168 @@
+﻿<Window x:Class="Timer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Timer"
+        xmlns:vm="clr-namespace:Timer.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <Window.DataContext>
+        <vm:ChessTimerViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="400"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="600"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,0,31">
+
+            <Button Command="{Binding Switch}"  Content="Switch" Margin="0 50" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+            <Grid x:Name="Timer1" Height="230" Width="230" Margin="50 0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="clock.png"/>
+                </Grid.Background>
+                <Border CornerRadius="300">
+
+
+                </Border>
+                <Border x:Name="hour_1" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="7" Width="70" BorderThickness="3" BorderBrush="#FF66B01C" Margin="116,112,44,110">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding HoursAngle1}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Border x:Name="minutes_1" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="5" Width="90" BorderThickness="3" BorderBrush="#FFD15209" Margin="116,113,24,112">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding MinutesAngle1}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Border x:Name="seconds_1" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="3" Width="100" BorderThickness="3" BorderBrush="#FFD15209" Margin="117,113,13,114">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding SecondsAngle1}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Ellipse Fill="Black" Width="15" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+            </Grid>
+            <Grid x:Name="Timer2" Height="230" Width="230" Margin="50 0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Grid.Background>
+                    <ImageBrush ImageSource="clock.png"/>
+                </Grid.Background>
+                <Border CornerRadius="300">
+
+
+                </Border>
+                <Border x:Name="hour_2" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="7" Width="70" BorderThickness="3" BorderBrush="#FF66B01C" Margin="116,112,44,110">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding HoursAngle2}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Border x:Name="minutes_2" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="5" Width="90" BorderThickness="3" BorderBrush="#FFD15209" Margin="116,113,24,112">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding MinutesAngle2}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Border x:Name="seconds_2" RenderTransformOrigin="0, 0.5" CornerRadius=" 0 15 15 0" Height="3" Width="100" BorderThickness="3" BorderBrush="#FFD15209" Margin="117,113,13,114">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding SecondsAngle2}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                </Border>
+                <Ellipse Fill="Black" Width="15" Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" Background="LightGray" Margin="0,0,0,31">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" Opacity="0.5" ShadowDepth="10"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Margin="20" Background="White">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="15" Opacity="0.3" Direction="270" ShadowDepth="10"/>
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="Длительность игры" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding InitMinutes}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Label Content="Имя первого игрока" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding Player1}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Label Content="Имя второго игрока" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding Player2}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
+                </Grid>
+            </Grid>
+            <Button Grid.Row="1" Command="{Binding Start}" Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Width="168" Height="61" Grid.RowSpan="2">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="30" Direction="270" Opacity="0.4" ShadowDepth="10"/>
+                </Button.Effect>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Background="#FFFF9700">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" Opacity="0.5" ShadowDepth="15" Direction="270"/>
+            </Grid.Effect>
+            <Grid Margin="150 10" Background="BlanchedAlmond">
+                <Label Content="{Binding WinMessage}" RenderTransformOrigin="1.039,0.712" Height="30" Width="192" FontFamily="Arial Narrow" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0" Background="#FFFF9700">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" Direction="270" Opacity="0.5" ShadowDepth="10"/>
+            </Grid.Effect>
+            <Grid Margin="50 10" Background="BlanchedAlmond">
+                <Label Content="ChessTimer" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
