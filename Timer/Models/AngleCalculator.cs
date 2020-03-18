@@ -13,8 +13,8 @@ namespace Timer.Models
         public static (double, double, double) GetAngles(int hours, int minutes, int seconds)
         {
             return (
-                CalculateAngle((double)hours + CalculateAngle(minutes)/360), 
-                CalculateAngle((double)minutes + CalculateAngle(seconds) / 360), 
+                CalculateAngle((double)5 * hours + 5 * CalculateAngle(minutes) / 360),
+                CalculateAngle((double)minutes + CalculateAngle(seconds) / 360),
                 CalculateAngle(seconds));
         }
 

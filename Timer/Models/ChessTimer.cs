@@ -11,6 +11,9 @@ namespace Timer.Models
         public string Player1;
         public string Player2;
 
+        public (int, int, int)? TimeValueFormatted1 => Timer1?.TimeValueFormatted;
+        public (int, int, int)? TimeValueFormatted2 => Timer2?.TimeValueFormatted;
+
         public SingleTimer Timer1;
         public SingleTimer Timer2;
 

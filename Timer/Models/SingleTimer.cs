@@ -9,6 +9,10 @@ namespace Timer.Models
 {
     public class SingleTimer
     {
+
+        //          TODO:
+        // Convert TIME to DOUBLE!!!!!!!!!!!!!
+
         public string Name;
 
         public DispatcherTimer timer;
@@ -17,6 +21,7 @@ namespace Timer.Models
         public int Hours => seconds / 3600;
         public int Minutes => (seconds / 60) - Hours * 60;
         public int Seconds => seconds % 60;
+        public (int, int, int)? TimeValueFormatted => (TimeValue / 3600, (TimeValue / 60) - TimeValue / 60, TimeValue % 60);
 
         private int seconds;
 

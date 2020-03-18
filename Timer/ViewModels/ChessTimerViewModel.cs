@@ -198,12 +198,14 @@ namespace Timer.ViewModels
             //Timer.Timer2.TimerTick += timer_tick_2;
         }
 
+        
+
         public void timer_tick_1(int hours, int minutes, int seconds, int fullsecnds)
         {
-            Hours1 = hours;
-            Minutes1 = minutes;
-            Seconds1 = seconds;
-            var data = AngleCalculator.GetAngles(hours, minutes, seconds);
+            Hours1 = hours - Timer.TimeValueFormatted1.Value.Item1;
+            Minutes1 = minutes - Timer.TimeValueFormatted1.Value.Item2;
+            Seconds1 = seconds - Timer.TimeValueFormatted1.Value.Item3;
+            var data = AngleCalculator.GetAngles(Hours1, Minutes1, Seconds1);
             HoursAngle1 = data.Item1 - 90;
             MinutesAngle1 = data.Item2 - 90;
             SecondsAngle1 = data.Item3 - 90;
@@ -252,6 +254,8 @@ namespace Timer.ViewModels
             Timer.OnWin += onWin;
 
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "") =>
