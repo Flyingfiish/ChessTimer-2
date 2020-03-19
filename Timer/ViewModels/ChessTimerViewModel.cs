@@ -13,16 +13,21 @@ namespace Timer.ViewModels
     public class ChessTimerViewModel : INotifyPropertyChanged
     {
         ChessTimer Timer;
+
+        (int, int, int) fullTime1;
+        (int, int, int) fullTime2;
+
         string player1 = "Player1";
         string player2 = "Player2";
-        int initMinutes = 60;
+        string initMinutes1 = "01:45:00";
+        string initMinutes2 = "01:00:00";
 
-        int seconds1;
-        int seconds2;
-        int minutes1;
-        int minutes2;
-        int hours1;
-        int hours2;
+        double seconds1;
+        double seconds2;
+        double minutes1;
+        double minutes2;
+        double hours1;
+        double hours2;
 
         double secondsAngle1 = -90;
         double secondsAngle2 = -90;
@@ -51,17 +56,26 @@ namespace Timer.ViewModels
                 OnPropertyChanged();
             }
         }
-        public int InitMinutes
+        public string InitMinutes1
         {
-            get => initMinutes;
+            get => initMinutes1;
             set
             {
-                initMinutes = value;
+                initMinutes1 = value;
+                OnPropertyChanged();
+            }
+        }
+        public string InitMinutes2
+        {
+            get => initMinutes2;
+            set
+            {
+                initMinutes2 = value;
                 OnPropertyChanged();
             }
         }
 
-        public int Seconds1
+        public double Seconds1
         {
             get => seconds1;
             set
@@ -70,7 +84,7 @@ namespace Timer.ViewModels
                 OnPropertyChanged();
             }
         }
-        public int Seconds2
+        public double Seconds2
         {
             get => seconds2;
             set
@@ -80,7 +94,7 @@ namespace Timer.ViewModels
             }
         }
 
-        public int Minutes1
+        public double Minutes1
         {
             get => minutes1;
             set
@@ -89,7 +103,7 @@ namespace Timer.ViewModels
                 OnPropertyChanged();
             }
         }
-        public int Minutes2
+        public double Minutes2
         {
             get => minutes2;
             set
@@ -99,7 +113,7 @@ namespace Timer.ViewModels
             }
         }
 
-        public int Hours1
+        public double Hours1
         {
             get => hours1;
             set
@@ -108,7 +122,7 @@ namespace Timer.ViewModels
                 OnPropertyChanged();
             }
         }
-        public int Hours2
+        public double Hours2
         {
             get => hours2;
             set
@@ -198,25 +212,25 @@ namespace Timer.ViewModels
             //Timer.Timer2.TimerTick += timer_tick_2;
         }
 
-        
 
-        public void timer_tick_1(int hours, int minutes, int seconds, int fullsecnds)
+
+        public void timer_tick_1(double hours, double minutes, double seconds, double fullsecnds)
         {
-            Hours1 = hours - Timer.TimeValueFormatted1.Value.Item1;
-            Minutes1 = minutes - Timer.TimeValueFormatted1.Value.Item2;
-            Seconds1 = seconds - Timer.TimeValueFormatted1.Value.Item3;
+            Hours1 = hours - (fullTime1.Item1 + (double) fullTime1.Item2 / 60);
+            Minutes1 = minutes - fullTime1.Item2;
+            Seconds1 = seconds - fullTime1.Item3;
             var data = AngleCalculator.GetAngles(Hours1, Minutes1, Seconds1);
             HoursAngle1 = data.Item1 - 90;
             MinutesAngle1 = data.Item2 - 90;
             SecondsAngle1 = data.Item3 - 90;
         }
 
-        public void timer_tick_2(int hours, int minutes, int seconds, int fullseconds)
+        public void timer_tick_2(double hours, double minutes, double seconds, double fullseconds)
         {
-            Hours2 = hours;
-            Minutes2 = minutes;
-            Seconds2 = seconds;
-            var data = AngleCalculator.GetAngles(hours, minutes, seconds);
+            Hours2 = hours - (fullTime2.Item1 + (double)fullTime2.Item2 / 60);
+            Minutes2 = minutes - fullTime2.Item2;
+            Seconds2 = seconds - fullTime2.Item3;
+            var data = AngleCalculator.GetAngles(Hours2, Minutes2, Seconds2);
             HoursAngle2 = data.Item1 - 90;
             MinutesAngle2 = data.Item2 - 90;
             SecondsAngle2 = data.Item3 - 90;
@@ -248,14 +262,47 @@ namespace Timer.ViewModels
 
         public void InitTimer()
         {
-            Timer = new ChessTimer(InitMinutes * 60, Player1, Player2);
+            fullTime1 = parseStringTime(InitMinutes1);
+            fullTime2 = parseStringTime(InitMinutes2);
+            Timer = new ChessTimer(
+                ConvertFullTimeToSeconds(fullTime1), 
+                ConvertFullTimeToSeconds(fullTime2), 
+                Player1, Player2);
             Timer.Timer1.TimerTick += timer_tick_1;
             Timer.Timer2.TimerTick += timer_tick_2;
             Timer.OnWin += onWin;
 
+            Hours1 = - (fullTime1.Item1 + (double)fullTime1.Item2 / 60);
+            Minutes1 = - fullTime1.Item2;
+            Seconds1 = - fullTime1.Item3;
+            var data = AngleCalculator.GetAngles(Hours1, Minutes1, Seconds1);
+            HoursAngle1 = data.Item1 - 90;
+            MinutesAngle1 = data.Item2 - 90;
+            SecondsAngle1 = data.Item3 - 90;
+
+            Hours2 = - (fullTime2.Item1 + (double)fullTime2.Item2 / 60);
+            Minutes2 = - fullTime2.Item2;
+            Seconds2 = - fullTime2.Item3;
+            data = AngleCalculator.GetAngles(Hours2, Minutes2, Seconds2);
+            HoursAngle2 = data.Item1 - 90;
+            MinutesAngle2 = data.Item2 - 90;
+            SecondsAngle2 = data.Item3 - 90;
         }
 
+        double ConvertFullTimeToSeconds((int, int, int) value) =>
+            value.Item1 * 3600 + value.Item2 * 60 + value.Item3;
 
+        (int, int, int) parseStringTime(string str)
+        {
+            var time = str.Split(' ', ':');
+            if (time.Length == 3)
+                return (Int32.Parse(time[0]), Int32.Parse(time[1]), Int32.Parse(time[2]));
+            else if (time.Length == 2)
+                return (Int32.Parse(time[0]), Int32.Parse(time[1]), 0);
+            else if (time.Length == 1)
+                return (Int32.Parse(time[0]), 1, 0);
+            return (1, 0, 0);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "") =>

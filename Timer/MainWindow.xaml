@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Timer"
-        xmlns:vm="clr-namespace:Timer.ViewModels"
+        xmlns:vm="clr-namespace:Timer.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Title="Chess Timer" Height="450" Width="900"
+        Background="{DynamicResource MaterialDesignPaper}" SnapsToDevicePixels="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:ChessTimerViewModel/>
     </Window.DataContext>
@@ -128,19 +128,25 @@
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Label Content="Длительность игры" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding InitMinutes}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
+                    <Label Content="Время игрока 1" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding InitMinutes1}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
                 </Grid>
                 <Grid Grid.Row="1">
+                    <Label Content="Время игрока 2" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding InitMinutes2}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
+                </Grid>
+                <Grid Grid.Row="2">
                     <Label Content="Имя первого игрока" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
                     <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding Player1}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="3">
                     <Label Content="Имя второго игрока" Margin="15 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
                     <TextBox Height="23" Margin="40 0" TextWrapping="Wrap" Text="{Binding Player2}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="76"/>
                 </Grid>
+                
             </Grid>
             <Button Grid.Row="1" Command="{Binding Start}" Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Width="168" Height="61" Grid.RowSpan="2">
                 <Button.Effect>

@@ -16,22 +16,22 @@ namespace Timer.Models
         public string Name;
 
         public DispatcherTimer timer;
-        public int TimeValue;
+        public double TimeValue;
 
-        public int Hours => seconds / 3600;
-        public int Minutes => (seconds / 60) - Hours * 60;
-        public int Seconds => seconds % 60;
-        public (int, int, int)? TimeValueFormatted => (TimeValue / 3600, (TimeValue / 60) - TimeValue / 60, TimeValue % 60);
+        public double Hours => seconds / 3600;
+        public double Minutes => (seconds / 60);
+        public double Seconds => seconds % 60;
+        public (double, double, double)? TimeValueFormatted => (TimeValue / 3600, (TimeValue / 60) - TimeValue / 60, TimeValue % 60);
 
-        private int seconds;
+        private double seconds;
 
         public delegate void ElapsedHandeler(string name);
         public event ElapsedHandeler Elapsed;
 
-        public delegate void TimerTickHandler(int hours, int minutes, int seconds, int fullseconds);
+        public delegate void TimerTickHandler(double hours, double minutes, double seconds, double fullseconds);
         public event TimerTickHandler TimerTick;
 
-        public SingleTimer(int timeValue, string name)
+        public SingleTimer(double timeValue, string name)
         {
             Name = name;
             TimeValue = timeValue;
